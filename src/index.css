@@ -5,6 +5,7 @@ body {
 .box {
   display: inline-block;       
   border: 1px solid black;
+  box-sizing: border-box;
   width: 15px;
   height: 15px;
   margin-left: -1px;
