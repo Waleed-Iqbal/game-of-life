@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
+import { ButtonToolbar, Dropdown, DropdownButton } from 'react-bootstrap';
 
 class Box extends React.Component {
 
@@ -54,9 +54,32 @@ class Grid extends React.Component {
 }
 
 class Buttons extends React.Component {
+
+  handleSelect = (e) => {
+    this.props.gridSize(e);
+  }
+
   render() {
     return (
-      
+      <div className="center">
+        <ButtonToolbar>
+          <button variant="light" onClick={this.props.playButton}>Play</button>
+          <button variant="light" onClick={this.props.pauseButton}>Pause</button>
+          <button variant="light" onClick={this.props.clear}>Clear</button>
+          <button variant="light" onClick={this.props.slow}>Slow</button>
+          <button variant="light" onClick={this.props.fast}>Fast</button>
+          <button variant="light" onClick={this.props.seed}>seed</button>
+          <DropdownButton
+            title="Grid Size"
+            id="size-menu"
+            onSelect={this.handleSelect}
+          >
+            <Dropdown.Item eventKey="1">20x10</Dropdown.Item>
+            <Dropdown.Item eventKey="2">50x30</Dropdown.Item>
+            <Dropdown.Item eventKey="3">70x50</Dropdown.Item>
+          </DropdownButton>
+        </ButtonToolbar>
+      </div>
     );
   }
 }
@@ -106,6 +129,42 @@ class Main extends React.Component {
 
   pauseButton = () => {
     clearInterval(this.intervalId);
+  }
+
+  slow = () => {
+    this.speed = 1000;
+    this.playButton();
+  }
+
+  fast = () => {
+    this.speed = 100;
+    this.playButton();
+  }
+
+  clear = () => {
+    var grid = Array(this.rows).fill().map(() => Array(this.cols).fill(false));
+    this.setState({
+      gridFull: grid,
+      generation: 0
+    });
+  }
+
+  gridSize = (size) => {
+    switch (size) {
+      case "1":
+        this.cols = 20;
+        this.rows = 10;
+        break;
+      case "2":
+        this.cols = 50;
+        this.rows = 40;
+        break;
+      default:
+        this.cols = 70;
+        this.rows = 50;
+        break;
+    }
+    this.clear();
   }
 
   play = () => {
