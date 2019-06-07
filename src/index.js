@@ -228,3 +228,5 @@ function arrayClone(arr) {
   return JSON.parse(JSON.stringify(arr));
 }
 ReactDOM.render(<Main />, document.getElementById('root'));
+
+// TODO: Add the functionality to stop game and click to add new cells
