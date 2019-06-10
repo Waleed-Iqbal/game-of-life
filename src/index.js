@@ -230,3 +230,4 @@ function arrayClone(arr) {
 ReactDOM.render(<Main />, document.getElementById('root'));
 
 // TODO: Add the functionality to stop game and click to add new cells
+// TODO: Add the functionality to save the state as well.
